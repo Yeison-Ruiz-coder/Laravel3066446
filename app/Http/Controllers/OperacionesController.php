@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Result;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
-use PHPUnit\TextUI\Configuration\SourceFilter;
 
 class OperacionesController extends Controller
 {
@@ -127,20 +127,68 @@ class OperacionesController extends Controller
     return view('tablamult');
 }
 
-public function calcularTabla(Request $request)
-{
-    $numero = $request->input('numero');
+    public function calcularTabla(Request $request)
+    {
+        $numero = $request->input('numero');
 
-    if (!is_numeric($numero) || $numero < 1 || $numero > 10) {
-        return back()->with('error', ' El número debe estar entre 1 y 10.');
+        if (!is_numeric($numero) || $numero < 1 || $numero > 10) {
+            return back()->with('error', ' El número debe estar entre 1 y 10.');
+        }
+
+        $tabla = [];
+        for ($i = 1; $i <= 10; $i++) {
+            $tabla[] = "{$numero} x {$i} = " . ($numero * $i);
+        }
+
+        return view('tablamult', compact('numero', 'tabla'));
     }
 
-    $tabla = [];
-    for ($i = 1; $i <= 10; $i++) {
-        $tabla[] = "{$numero} x {$i} = " . ($numero * $i);
+    //---------------------------------------------------
+
+    // Mostrar todas las categorías
+
+    public function index() {
+        $categories = Category::all();
+        return view('categoria.index', compact('categories'));
     }
 
-    return view('tablamult', compact('numero', 'tabla'));
-}
+    public function create() {
+    $categories = Category::all();
+    return view('categoria.create', compact('categories'));
+    }
 
+
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        Category::create($request->only('name'));
+        return redirect()->route('categoria.index')->with('success', 'Categoría creada correctamente.');
+    }
+
+    public function show($id) {
+        $category = Category::findOrFail($id);
+        return view('categoria.show', compact('category'));
+    }
+
+    public function edit($id) {
+        $category = Category::findOrFail($id);
+        return view('categoria.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id) {
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update($request->only('name'));
+        return redirect()->route('categoria.index')->with('success', 'Categoría actualizada correctamente.');
+    }
+
+    public function destroy($id) {
+        Category::destroy($id);
+        return redirect()->route('categoria.index')->with('success', 'Categoría eliminada correctamente.');
+    }
 }

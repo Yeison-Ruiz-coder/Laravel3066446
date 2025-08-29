@@ -59,3 +59,15 @@ Route::post('tablamult', [OperacionesController::class, 'calcularTabla'])->name(
 //Creo las rutas que conectan views y controllers
 Route::get('analizar',[AleatorioController::class,'analizarNumeros'])->name('analizar.formulario');
 Route::post('analizar',[AleatorioController::class,'analizarnum'])->name('analizar.calcular');
+
+//--------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
+
+Route::get('categoria', [OperacionesController::class, 'index'])->name('categoria.index');
+Route::get('categoria/create', [OperacionesController::class, 'create'])->name('categoria.create');
+Route::post('categoria', [OperacionesController::class, 'store'])->name('categoria.store');
+Route::get('categoria/{id}', [OperacionesController::class, 'show'])->name('categoria.show');
+Route::get('categoria/{id}/edit', [OperacionesController::class, 'edit'])->name('categoria.edit');
+Route::put('categoria/{id}', [OperacionesController::class, 'update'])->name('categoria.update');
+Route::delete('categoria/{id}', [OperacionesController::class, 'destroy'])->name('categoria.destroy');
+//---------------------------------------------------------------------------------------
