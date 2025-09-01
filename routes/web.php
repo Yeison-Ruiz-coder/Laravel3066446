@@ -5,6 +5,11 @@ use App\Http\Controllers\OperacionesController;
 use App\Http\Controllers\AleatorioController;
 use App\Http\Controllers\FactorialController;
 use App\Http\Controllers\PromedioController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
 
 //Ruta de inicio donde se encuentran todos los ejercicion en una lista.
 Route::get('/', function () {
@@ -71,3 +76,9 @@ Route::get('categoria/{id}/edit', [OperacionesController::class, 'edit'])->name(
 Route::put('categoria/{id}', [OperacionesController::class, 'update'])->name('categoria.update');
 Route::delete('categoria/{id}', [OperacionesController::class, 'destroy'])->name('categoria.destroy');
 //---------------------------------------------------------------------------------------
+
+Route::resource('posts', PostController::class);
+Route::resource('profiles', ProfileController::class);
+Route::resource('users', UserController::class);
+Route::resource('roles', RoleController::class);
+
