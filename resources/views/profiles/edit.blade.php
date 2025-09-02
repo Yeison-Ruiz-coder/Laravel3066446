@@ -2,8 +2,14 @@
 <form action="{{ route('profiles.update', $profile->id) }}" method="POST">
     @csrf
     @method('PUT')
-    <label for="bio">Bio:</label>
-    <input type="text" name="bio" id="bio" value="{{ $profile->bio }}">
+    <label for="title">Título:</label>
+    <input type="text" name="title" id="title" value="{{ $profile->title }}" required>
+    <br>
+    <label for="biography">Biografía:</label>
+    <input type="text" name="biography" id="biography" value="{{ $profile->biography }}">
+    <br>
+    <label for="website">Sitio web:</label>
+    <input type="text" name="website" id="website" value="{{ $profile->website }}">
     <br>
     <button type="submit">Actualizar</button>
 </form>

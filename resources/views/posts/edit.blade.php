@@ -2,11 +2,11 @@
 <form action="{{ route('posts.update', $post->id) }}" method="POST">
     @csrf
     @method('PUT')
-    <label for="title">Título:</label>
-    <input type="text" name="title" id="title" value="{{ $post->title }}" required>
+    <label for="name">Nombre:</label>
+    <input type="text" name="name" id="name" value="{{ $post->name }}" required>
     <br>
-    <label for="content">Contenido:</label>
-    <textarea name="content" id="content" required>{{ $post->content }}</textarea>
+    <label for="body">Contenido:</label>
+    <textarea name="body" id="body" required>{{ $post->body }}</textarea>
     <br>
     <button type="submit">Actualizar</button>
 </form>

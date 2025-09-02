@@ -20,7 +20,7 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        Profile::create($request->only(['bio']));
+    Profile::create($request->only(['title', 'biography', 'website']));
         return redirect()->route('profiles.index');
     }
 
@@ -38,8 +38,8 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
-        $profile = Profile::findOrFail($id);
-        $profile->update($request->only(['bio']));
+    $profile = Profile::findOrFail($id);
+    $profile->update($request->only(['title', 'biography', 'website']));
         return redirect()->route('profiles.index');
     }
 
